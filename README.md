@@ -4,7 +4,7 @@
 
 #### API HTTP Rest - [vehicles-api](https://github.com/toodaniels/vehicles-api)
 
-[API en Heroku](https://vehicles-engineering-project.herokuapp.com/)
+[API en Heroku](https://vehicles-engineering-project.herokuapp.com/api/v1)
 
 Clonar repo:
 
@@ -57,3 +57,58 @@ Editar archivo .env para conectar a la API Rest:
 Ejecutar :
 		
 		npm start 
+
+
+## CURL
+
+### Signup user - POST /api/v1/signup
+
+	curl -d '{"email":"test535@gmail.com", "password":"test535", "name":"Daniel Torres"}' -H "Content-Type: application/json" -X POST https://vehicles-engineering-project.herokuapp.com/api/v1/signup
+
+
+Response 201 Created
+
+	Content-Type : application/json;
+
+### Signin user- POST /api/v1/signin
+
+	curl -d '{"email":"test535@gmail.com", "password":"test535"}' -H "Content-Type: application/json" -X POST https://vehicles-engineering-project.herokuapp.com/api/v1/signin
+
+
+
+Response 200 OK
+
+	Content-Type : application/json;
+
+Use <ACCESS_TOKEN> = response["token"]
+
+### Create Vehicle - POST /api/v1/auth/vehicles
+
+	curl -d '{"plate":"test535", "location":[0, 1]}' -H "Content-Type: application/json" -H "Authorization: Bearer <ACCESS_TOKEN>"  -X POST https://vehicles-engineering-project.herokuapp.com/api/v1/auth/vehicles
+
+Response 201 Created
+
+	Content-Type : application/json;
+
+### Get user vehicles - GET /api/v1/auth/vehicles
+
+	curl -H "Authorization: Bearer <ACCESS_TOKEN>" https://vehicles-engineering-project.herokuapp.com/api/v1/auth/vehicles
+
+
+Response 200 OK
+
+	Content-Type : application/json;
+
+
+### Update vehicle - PUT /api/v1/auth/vehicles/:plate
+
+	curl -d '{"plate":"test535", "location":[1, 2]}' -H "Content-Type: application/json" -H "Authorization: Bearer Bearer <ACCESS_TOKEN>"  -X PUT https://vehicles-engineering-project.herokuapp.com/api/v1/auth/vehicles/test535
+
+
+Response 204 No Content
+
+### Delete vehicle - DELETE /api/v1/auth/vehicles/:plate
+
+	curl -H "Authorization: Bearer <ACCESS_TOKEN>"  -X DELETE https://vehicles-engineering-project.herokuapp.com/api/v1/auth/vehicles/test535
+
+Response 204 No Content
